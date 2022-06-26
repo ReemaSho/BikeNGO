@@ -54,7 +54,7 @@ const validateValues = (userToCreate) => {
     }
   }
   if (phone) {
-    const validatePhoneNumber = validator.isAlpha(phone, "nl-NL");
+    const validatePhoneNumber = validator.isMobilePhone(phone, "nl-NL");
     if (!validatePhoneNumber) {
       errorList.push("Invalid phone number");
     }

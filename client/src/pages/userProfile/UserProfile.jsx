@@ -28,6 +28,8 @@ const UserProfile = () => {
       user: {
         firstName: loggedUser.firstName,
         lastName: loggedUser.lastName,
+        phone: loggedUser.phone,
+        username: loggedUser.username,
         password: loggedUser.password,
         address: userAddress,
       },
