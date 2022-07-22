@@ -1,5 +1,5 @@
 import React from "react";
-import TextLink from "../../../components/textLink/TextLink";
+import TextLink from "../textLink/TextLink";
 import "./footer.css";
 
 const Footer = () => {
