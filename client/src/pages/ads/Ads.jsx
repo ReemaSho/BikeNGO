@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Select from "../../components/select/Select";
 import Input from "../../components/input/Input";
-import PageWrapper from "../components/pageWrapper/PageWrapper";
+import PageWrapper from "../../components/pageWrapper/PageWrapper";
 import Button from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import Photos from "../components/photos/Photos";
+import Photos from "../components/ads/photos/Photos";
 import { userContext } from "../../provider/user";
 import Modal from "../../components/modal/Modal";
 import Loading from "../../components/loading/Loading";

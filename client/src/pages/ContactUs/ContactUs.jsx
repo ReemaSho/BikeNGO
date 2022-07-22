@@ -1,5 +1,5 @@
 import React from "react";
-import DevCard from "../../components/devCard/DevCard";
+import DevCard from "../components/contactUs/devCard/DevCard";
 
 const ContactUs = () => {
   const Developers = [

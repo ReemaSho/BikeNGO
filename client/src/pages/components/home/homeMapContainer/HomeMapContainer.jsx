@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import useAllBikesAddresses from "../../../hooks/useAllBikesAddresses";
-import MapGl from "../../../components/mapGl/MapGl";
-import Loading from "../../../components/loading/Loading";
-import Error from "../../../components/error/Error";
+import useAllBikesAddresses from "../../../../hooks/useAllBikesAddresses";
+import MapGl from "../../../../components/mapGl/MapGl";
+import Loading from "../../../../components/loading/Loading";
+import Error from "../../../../components/error/Error";
 import "./HomeMapContainer.css";
 const HomeMapContainer = () => {
   const { bikes, isLoading, error } = useAllBikesAddresses();

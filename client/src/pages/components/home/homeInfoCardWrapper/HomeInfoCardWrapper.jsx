@@ -1,9 +1,9 @@
 import React from "react";
-import InfoCard from "../../../components/infoCard/InfoCard";
+import InfoCard from "../infoCard/InfoCard";
 import "./HomeInfoCardWrapper.css";
-import girlBuy from "../../../assets/icon/girl-buy.svg";
-import howItWorks from "../../../assets/icon/how-it-works-1.svg";
-import howItWorks2 from "../../../assets/icon/how-it-works-2.svg";
+import girlBuy from "../../../../assets/icon/girl-buy.svg";
+import howItWorks from "../../../../assets/icon/how-it-works-1.svg";
+import howItWorks2 from "../../../../assets/icon/how-it-works-2.svg";
 const infoCardData = [
   {
     icon: howItWorks,

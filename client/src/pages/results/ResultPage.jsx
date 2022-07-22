@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import Select from "../../components/select/Select";
-import PageWrapper from "../components/pageWrapper/PageWrapper";
+import PageWrapper from "../../components/pageWrapper/PageWrapper";
 import { FilterOptionContext } from "../../provider/filter";
 import "./ResultPage.css";
-import ResultPageWrapper from "../components/resultPageWrapper/ResultPageWrapper";
+import ResultPageWrapper from "../components/result/ResultPageWrapper";
 import { SearchContext } from "../../provider/search";
 const Results = () => {
   const {

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import FavIcon from "../favIcon/FavIcon";
+import SellFasterIcon from "../sellFasterIcon/SellFasterIcon";
 import Button from "../button/Button";
 import { useNavigate } from "react-router-dom";
 const BikeCard = ({
@@ -12,13 +12,17 @@ const BikeCard = ({
   id,
   sellFaster,
   email,
+  ...rest
 }) => {
   const navigate = useNavigate();
   const handleCardClick = () => {
     navigate(`/results/${id}`);
   };
   return (
-    <div className="w-80 h-[27rem] rounded-md overflow-hidden border-[1px] border-tertiary cursor-pointer shadow-lg hover:shadow-md transform transition-all duration-200 ease-in-out">
+    <div
+      {...rest}
+      className=" m-2 w-80 h-[27rem] rounded-md overflow-hidden border-[1px] border-tertiary cursor-pointer shadow-lg hover:shadow-md transform transition-all duration-200 ease-in-out"
+    >
       {/* picture container */}
       <div
         onClick={handleCardClick}
@@ -26,7 +30,7 @@ const BikeCard = ({
       >
         <img src={img} alt={title} className="w-full h-full object-cover" />
         <div className="absolute top-3 right-2">
-          <FavIcon sellFaster={sellFaster} />
+          <SellFasterIcon sellFaster={sellFaster} />
         </div>
         <div className="absolute left-3 -bottom-5 bg-text px-4 py-2 rounded-md text-white font-semibold">
           € {price}
@@ -41,14 +45,17 @@ const BikeCard = ({
         <p className="text-text_secondary font-semibold">Brand : {brand}</p>
       </div>
       {/* button */}
-      <div className="flex justify-center items-center">
-        {/* button wrapper */}
-        <div className="w-5/6">
-          <a href={`mailto:${email}`}>
-            <Button text="Mail Seller" fullSize={true} />
-          </a>
+
+      {/* button wrapper */}
+      {email && (
+        <div className="flex justify-center items-center">
+          <div className="w-5/6">
+            <a href={`mailto:${email}`}>
+              <Button text="Mail Seller" fullSize={true} />
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -61,7 +68,7 @@ BikeCard.propTypes = {
   price: PropTypes.number.isRequired,
   brand: PropTypes.string.isRequired,
   sellFaster: PropTypes.bool.isRequired,
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
 };
 
 export default BikeCard;

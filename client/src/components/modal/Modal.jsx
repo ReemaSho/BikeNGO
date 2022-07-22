@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import PropType from "prop-types";
+import { useNavigate } from "react-router-dom";
 const Modal = ({ message, isOpen }) => {
   const [open, setOpen] = useState(isOpen);
+  const navigate = useNavigate();
+  const close = () => {
+    setOpen(false);
+    navigate(1);
+  };
   return (
     open && (
       <div className="fixed top-0 left-0 w-full h-full flex flex-col z-10 justify-center items-center">
@@ -10,7 +16,7 @@ const Modal = ({ message, isOpen }) => {
           <p className="mx-5 text-text text-lg">{message}</p>
           <button
             className="bg-red-500 w-1/2 text-white  hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2"
-            onClick={() => setOpen(false)}
+            onClick={close}
           >
             Close
           </button>

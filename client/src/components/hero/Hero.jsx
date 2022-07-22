@@ -60,11 +60,11 @@ const Hero = () => {
       {/* hero container */}
       <div className="flex flex-col h-72 lg:h-[38rem] bg-hero bg-no-repeat bg-center bg-cover font-bold lg:pt-10 ">
         {/* hero header container */}
-        <h1 className="text-lg lg:text-[2rem] xl:text-[3rem] m-auto mt-4 text-text italic">
+        <h1 className="text-2xl lg:text-[2rem] xl:text-[3rem] m-auto mt-4 text-text">
           Marketplace made for bikes
         </h1>
         {/* hero paragraph container */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center space-y-1 md:space-y-2">
           <p className=" text-xl lg:text-[2rem] text-text_secondary">
             The best bikes in Netherlands
           </p>
@@ -139,10 +139,10 @@ const Hero = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-center p-2">
+            <div className="flex justify-center p-2 ">
               <Button
                 text={"Search"}
-                classes={"h-9 lg:w-40 mt-2"}
+                classes={"h-9 lg:w-64 mt-2"}
                 fullSize={true}
                 onClick={btnSearchOnClick}
               />

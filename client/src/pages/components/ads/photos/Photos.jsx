@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import ImageUploader from "react-images-upload";
-import Button from "../../../components/button/Button";
+import Button from "../../../../components/button/Button";
 import axios from "axios";
 import PropTypes from "prop-types";
 import "./Photos.css";
-import Loading from "../../../components/loading/Loading";
+import Loading from "../../../../components/loading/Loading";
 const Photos = ({ setPhotos }) => {
   const [filePhotoData, setFilePhotoData] = useState([]);
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
   //* Add Bike Photo
 
   const filePhotoChangeHandler = (picture) => {
+    setIsImageUploaded(false);
     setFilePhotoData(picture);
   };
   const multipleFilesUpload = async (data) => {
@@ -22,6 +24,7 @@ const Photos = ({ setPhotos }) => {
         setPhotos(res.data.urls);
         setFilePhotoData(true);
         setLoading(false);
+        setIsImageUploaded(true);
       })
       .catch((err) => {
         alert("Cannot upload photos", err);
@@ -70,10 +73,15 @@ const Photos = ({ setPhotos }) => {
           ) : (
             <>
               <Button
-                text={"Upload"}
+                text={isImageUploaded ? "Uploaded" : "Upload"}
                 onClick={() => UploadMultipleFiles()}
                 classes={
-                  "px-4 py-2 text-white bg-green-500 rounded shadow-md w-64 "
+                  // eslint-disable-next-line quotes
+                  `px-4 py-2  ${
+                    isImageUploaded
+                      ? "bg-gray-200 text-text"
+                      : "text-white bg-green-500"
+                  } rounded shadow-md w-64 `
                 }
               />
             </>

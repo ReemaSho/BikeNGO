@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import useFetch from "../../../hooks/useFetch";
 import { FilterOptionContext } from "../../../provider/filter";
 import { SearchContext } from "../../../provider/search";
-import ResultPageMap from "../resultPageMap/ResultPageMap";
-import ResultBikeCardHorizontalWrapper from "../resultBikeCardHorizontalWrapper/ResultBikeCardHorizontalWrapper";
+import ResultPageMap from "./ResultPageMap";
+import BikeCardList from "./BikeCardList";
 import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
 const ResultPageWrapper = () => {
@@ -67,7 +67,7 @@ const ResultPageWrapper = () => {
   return (
     <div className="md:flex mt-10 ">
       <div className="w-full md:w-[55%] mx-auto">
-        <ResultBikeCardHorizontalWrapper bikeResult={bikeResult} />
+        <BikeCardList bikeResult={bikeResult} />
       </div>
       {/* map container */}
       <div className="flex-1 relative">

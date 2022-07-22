@@ -4,16 +4,15 @@ import LoginRegister from "../pages/loginRegister/LoginRegister";
 import Nav from "../components/nav/Nav";
 import Footer from "../pages/components/footer/Footer";
 import DetailPage from "../pages/detail/DetailPage";
-import Home from "../pages/Home/Home";
+import Home from "../pages/home/Home";
 import Results from "../pages/results/ResultPage";
-import CreateUser from "../pages/User/CreateUser";
 import Ads from "../pages/ads/Ads";
 import UserProfile from "../pages/userProfile/UserProfile";
-import AboutUs from "../pages/AboutUs/AboutUs";
-import TermsOfUse from "../pages/TermsOfUse/TermsOfUse";
+import AboutUs from "../pages/aboutUs/AboutUs";
+import TermsOfUse from "../pages/termsOfUse/TermsOfUse";
 import PrivacyPolicy from "../pages/privacyPolicy/PrivacyPolicy";
-import ContactUs from "../pages/ContactUs/ContactUs";
-import NotFound from "../pages/NotFound/NotFound";
+import ContactUs from "../pages/contactUs/ContactUs";
+import NotFound from "../pages/notFound/NotFound";
 
 const AppRouter = () => {
   return (
@@ -21,7 +20,6 @@ const AppRouter = () => {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/user/create" element={<CreateUser />} />
         <Route path="/login" element={<LoginRegister />} />
         <Route path="/results" element={<Results />} />
         <Route path="/results/:id" element={<DetailPage />} />

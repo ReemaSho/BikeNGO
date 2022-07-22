@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import PageWrapper from "../components/pageWrapper/PageWrapper";
+import PageWrapper from "../../components/pageWrapper/PageWrapper";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import ResultPageMap from "../components/resultPageMap/ResultPageMap";
+import ResultPageMap from "../components/result/ResultPageMap";
 import { HiLink } from "react-icons/hi";
 import Loading from "../../components/loading/Loading";
 import { FaMailBulk } from "react-icons/fa";
@@ -31,8 +31,8 @@ const DetailPage = () => {
     `/bike/${id}`,
     onSuccess
   );
-  const handleCopyLink = async () => {
-    await navigator.clipboard.writeText(window.location.href);
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(`${window.location.href}`);
     alert("Link copied to clipboard");
   };
   useEffect(() => {
@@ -66,10 +66,10 @@ const DetailPage = () => {
             {bike.title}
           </h1>
           {/* image section */}
-          <div className="w-full h-96 md:h-[35rem] flex flex-col md:flex-row md gap-2 md:border-r-2 md:border-gray-400">
-            <div className="flex-1 justify-center items-center bg-gray-300 rounded-md overflow-hidden">
+          <div className="w-full h-96 md:h-[35rem] flex flex-col md:flex-row md gap-2 md:border-r-2 md:border-gray-50">
+            <div className="flex-1 justify-center items-center bg-gray-50 rounded-md overflow-hidden">
               <img
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 src={images[selectedImage]}
                 alt={bike.title}
               />
@@ -167,8 +167,11 @@ const DetailPage = () => {
           {/* Share Via */}
           <div className="my-2">
             <h3 className="text-xl text-text font-bold">Share Via</h3>
-            <div className="mt-2 flex items-center" onClick={handleCopyLink}>
-              <div className="w-12 h-12 flex justify-center items-center mr-4 bg-gray-100 rounded-full hover:shadow-md shadow-primary">
+            <div className="mt-2 flex items-center">
+              <div
+                onClick={handleCopyLink}
+                className="w-12 h-12 flex justify-center items-center mr-4 bg-gray-100 rounded-full hover:shadow-md shadow-primary"
+              >
                 <HiLink className="w-8 h-8 text-gray-600" />
               </div>
             </div>

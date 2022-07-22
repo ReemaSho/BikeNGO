@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
-import PageWrapper from "../components/pageWrapper/PageWrapper";
+import PageWrapper from "../../components/pageWrapper/PageWrapper";
 import { userContext } from "../../provider/user";
 import Error from "../../components/error/Error";
 import useFetch from "../../hooks/useFetch";
@@ -28,8 +28,6 @@ const UserProfile = () => {
       user: {
         firstName: loggedUser.firstName,
         lastName: loggedUser.lastName,
-        phone: loggedUser.phone,
-        username: loggedUser.username,
         password: loggedUser.password,
         address: userAddress,
       },
@@ -51,8 +49,8 @@ const UserProfile = () => {
   useEffect(() => {
     if (localUser) {
       setPath(`/user/${localUser._id}`);
-      const { username, firstName, lastName, phone } = localUser;
-      setLoggedUser({ username, firstName, lastName, phone });
+      const { username, email, firstName, lastName, phone } = localUser;
+      setLoggedUser({ username, firstName, lastName, phone, email });
       setUserAddress({ ...localUser.address });
     }
     return cancelFetch;

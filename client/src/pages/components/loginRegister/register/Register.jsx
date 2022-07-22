@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./register.css";
-import Input from "../../../components/input/Input";
-import Button from "../../../components/button/Button";
-import useFetch from "../../../hooks/useFetch";
+import Input from "../../../../components/input/Input";
+import Button from "../../../../components/button/Button";
+import useFetch from "../../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../../../provider/user";
-import Loading from "../../../components/loading/Loading";
-import Error from "../../../components/error/Error";
+import { userContext } from "../../../../provider/user";
+import Loading from "../../../../components/loading/Loading";
+import Error from "../../../../components/error/Error";
 const Register = () => {
   const navigate = useNavigate();
   const { setLocalUser } = useContext(userContext);
@@ -20,7 +20,7 @@ const Register = () => {
     if (data.accessToken) {
       localStorage.setItem("user", data.accessToken);
     }
-    navigate(-1);
+    navigate("/");
   };
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/user/create",

@@ -1,8 +1,8 @@
 import React from "react";
-import HomeBikeCardWrapper from "../components/homeBikeCardWrapper/HomeBikeCardWrapper";
-import PageWrapper from "../components/pageWrapper/PageWrapper";
-import HomeInfoCardWrapper from "../components/homeInfoCardWrapper/HomeInfoCardWrapper";
-import HomeMapContainer from "../components/homeMapContainer/HomeMapContainer";
+import HomeBikeCardWrapper from "../components/home/HomeBikeCardWrapper";
+import PageWrapper from "../../components/pageWrapper/PageWrapper";
+import HomeInfoCardWrapper from "../components/home/homeInfoCardWrapper/HomeInfoCardWrapper";
+import HomeMapContainer from "../components/home/homeMapContainer/HomeMapContainer";
 import Hero from "../../components/hero/Hero";
 
 const Home = () => {
