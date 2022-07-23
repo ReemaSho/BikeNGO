@@ -1,29 +1,15 @@
 import React, { useContext } from "react";
-import { FilterOptionContext } from "../../provider/filter";
-import { SearchContext } from "../../provider/search";
+import { BikesContext } from "../../provider/bikes";
 import { useNavigate } from "react-router-dom";
 import bikeMarker from "../../assets/logo/Logo.png";
 
 const Logo = () => {
-  const {
-    setFilterOption,
-    setSelectValue,
-    setType,
-    setCategory,
-    setBrand,
-    setWheelSize,
-  } = useContext(FilterOptionContext);
-  const { setSearchOption } = useContext(SearchContext);
+  const { setSearch, setFilter } = useContext(BikesContext);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    setFilterOption([]);
-    setSelectValue([]);
-    setType("");
-    setCategory("");
-    setBrand("");
-    setWheelSize("");
-    setSearchOption("");
+    setSearch("");
+    setFilter({});
     navigate("/");
   };
   return (

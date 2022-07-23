@@ -3,45 +3,24 @@ import Input from "../input/Input";
 import Button from "../button/Button";
 import Select from "../select/Select";
 import { useNavigate } from "react-router-dom";
-import { FilterOptionContext } from "../../provider/filter";
-import { SearchContext } from "../../provider/search";
-import useAllBikesAddresses from "../../hooks/useAllBikesAddresses";
+import { BikesContext } from "../../provider/bikes";
+import { useEffect } from "react";
 const Hero = () => {
-  const { bikes } = useAllBikesAddresses();
   const [inputValue, setInputValue] = useState("");
   const {
-    setFilterOption,
-    selectValue,
-    setSelectValue,
-    setType,
-    setCategory,
+    onFilterChanges,
+    setSearch,
     setBrand,
+    setType,
     setWheelSize,
-  } = useContext(FilterOptionContext);
-  const { setSearchOption } = useContext(SearchContext);
-  const navigate = useNavigate();
-  const onFilterOptionsChanged = (e, filterName) => {
-    const filter = {};
+    setCategory,
+  } = useContext(BikesContext);
 
-    if (e.target.value !== filterName) {
-      const formattedFilter = filterName
-        .toLowerCase()
-        .replaceAll(" ", "-")
-        .trim();
-      filter[formattedFilter] = e.target.value;
-      setSelectValue({
-        ...selectValue,
-        ...filter,
-      });
-    } else if (e.target.value === filterName) {
-      const formattedFilter = filterName
-        .toLowerCase()
-        .replaceAll(" ", "-")
-        .trim();
-      delete selectValue[formattedFilter];
-      setSelectValue({ ...selectValue });
-    }
-  };
+  useEffect(() => {
+    setSearch(inputValue);
+  }, [inputValue]);
+
+  const navigate = useNavigate();
 
   // trigger when the search input value changes
   const inputOnChange = (e) => {
@@ -49,12 +28,9 @@ const Hero = () => {
   };
   // trigger when the search button is clicked
   const btnSearchOnClick = () => {
-    setFilterOption({});
-    setSearchOption(inputValue);
-    setFilterOption(selectValue);
-
     navigate("/results");
   };
+
   return (
     <>
       {/* hero container */}
@@ -92,7 +68,7 @@ const Hero = () => {
         <div className="hidden lg:flex flex-col items-center mb-6">
           <div className="w-[32rem] shadow-lg p-2 rounded-xl bg-emerald-50 ">
             <div className="p-1 text-2xl text-text">
-              <p>Search in {bikes.length} bikes</p>
+              <p>Search bikes</p>
             </div>
             <div className="p-1 text-xl text-text">
               <p>Within the largest marketplace in Netherlands</p>
@@ -102,7 +78,7 @@ const Hero = () => {
                 <Select
                   filterName="Category"
                   path="/category"
-                  onChange={onFilterOptionsChanged}
+                  onChange={onFilterChanges}
                   onClick={(e) =>
                     setCategory(e.target.options[e.target.selectedIndex].value)
                   }
@@ -112,17 +88,17 @@ const Hero = () => {
                 <Select
                   filterName="Type"
                   path="/type"
-                  onChange={onFilterOptionsChanged}
-                  onClick={(e) =>
-                    setType(e.target.options[e.target.selectedIndex].value)
-                  }
+                  onChange={onFilterChanges}
+                  onClick={(e) => {
+                    setType(e.target.options[e.target.selectedIndex].value);
+                  }}
                 />
               </div>
               <div>
                 <Select
                   filterName="Brand"
                   path="/brand"
-                  onChange={onFilterOptionsChanged}
+                  onChange={onFilterChanges}
                   onClick={(e) =>
                     setBrand(e.target.options[e.target.selectedIndex].value)
                   }
@@ -132,7 +108,7 @@ const Hero = () => {
                 <Select
                   filterName="Wheels size"
                   path="/wheelSize"
-                  onChange={onFilterOptionsChanged}
+                  onChange={onFilterChanges}
                   onClick={(e) =>
                     setWheelSize(e.target.options[e.target.selectedIndex].value)
                   }

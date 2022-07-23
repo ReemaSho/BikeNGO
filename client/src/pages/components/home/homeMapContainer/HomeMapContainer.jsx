@@ -6,7 +6,9 @@ import Error from "../../../../components/error/Error";
 import "./HomeMapContainer.css";
 const HomeMapContainer = () => {
   const { bikes, isLoading, error } = useAllBikesAddresses();
+
   const [bikesOnMap, setBikesOnMap] = useState([]);
+
   useEffect(() => setBikesOnMap(bikes), [bikes]);
   const [viewport, setViewport] = useState({
     latitude: 52.379189,
