@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from "react";
-import useFetch from "../../../hooks/useFetch";
+import React, { useEffect, useContext } from "react";
+
 import BikeCard from "../../../components/bikeCard/BikeCard";
 import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
+import { BikesContext } from "../../../provider/bikes";
+import { useState } from "react";
 
 const HomeBikeCardWrapper = () => {
-  const path = "/bike?featured=true";
-  const [featuredBike, setFeaturedBike] = useState([]);
-
-  const onSuccess = (data) => {
-    setFeaturedBike(data.bikes);
-  };
-  const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    path,
-    onSuccess
-  );
-
+  const { setPath, error, isLoading, bikes, path } = useContext(BikesContext);
+  const [featuredBikes, setFeaturedBikes] = useState([]);
   useEffect(() => {
-    performFetch({
-      method: "GET",
-    });
-    return cancelFetch;
+    setPath("/bike?featured=true");
   }, []);
-
+  useEffect(() => {
+    if (path === "/bike?featured=true") {
+      setFeaturedBikes(bikes);
+    }
+  }, [bikes]);
   return (
     <div className="my-10 ">
       <h1 className="mx-4 my-6  not-prose my-2 text-2xl text-text  tracking-widest">
@@ -30,11 +24,13 @@ const HomeBikeCardWrapper = () => {
       </h1>
       <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-items-center gap-4 w-full">
         {/* foreach */}
-        {error ? <Error message={error} /> : null}
-        {isLoading ? (
+        {error && path === "/bike?featured=true" ? (
+          <Error message={error} />
+        ) : null}
+        {isLoading && path === "/bike?featured=true" ? (
           <Loading />
         ) : (
-          featuredBike.map((bike) => (
+          featuredBikes.map((bike) => (
             <BikeCard
               key={bike._id}
               id={bike._id}

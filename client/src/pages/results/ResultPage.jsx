@@ -1,53 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Select from "../../components/select/Select";
 import PageWrapper from "../../components/pageWrapper/PageWrapper";
-import { FilterOptionContext } from "../../provider/filter";
+import { BikesContext } from "../../provider/bikes";
 import "./ResultPage.css";
 import ResultPageWrapper from "../components/result/ResultPageWrapper";
-import { SearchContext } from "../../provider/search";
 const Results = () => {
-  const {
-    setFilterOption,
-    selectValue,
-    setSelectValue,
-    type,
-    brand,
-    wheelSize,
-    category,
-    setType,
-    setWheelSize,
-    setBrand,
-    setCategory,
-  } = useContext(FilterOptionContext);
-  const { setSearchOption } = useContext(SearchContext);
-  // handle Filtering
-  const onFilterOptionsChanged = (e, filterName) => {
-    e.preventDefault();
-    setSearchOption("");
-    const filter = {};
-    if (e.target.value !== filterName) {
-      const formattedFilter = filterName
-        .toLowerCase()
-        .replaceAll(" ", "-")
-        .trim();
-      filter[formattedFilter] = e.target.value;
-      setSelectValue({
-        ...selectValue,
-        ...filter,
-      });
-    } else if (e.target.value === filterName) {
-      const formattedFilter = filterName
-        .toLowerCase()
-        .replaceAll(" ", "-")
-        .trim();
-      delete selectValue[formattedFilter];
-      setSelectValue({ ...selectValue });
-    }
-  };
-
-  useEffect(() => {
-    setFilterOption(selectValue);
-  }, [selectValue]);
+  const { onFilterChanges, type, brand, wheelSize, category } =
+    useContext(BikesContext);
 
   return (
     <PageWrapper>
@@ -57,45 +16,42 @@ const Results = () => {
         <div className="flex flex-wrap justify-between">
           <div className="mb-3 mr-2">
             <Select
-              value={brand !== "" ? brand : "Brand"}
-              filterName="Brand"
+              filterName={brand ? brand : "Brand"}
               path="/brand"
-              onChange={onFilterOptionsChanged}
-              onClick={(e) => setBrand(e.target.options.value)}
+              onChange={onFilterChanges}
+              // onClick={(e) => setBrand(e.target.options.value)}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
-              value={type !== "" ? type : "Type"}
-              filterName="Type"
+              filterName={type ? type : "Type"}
               path="/type"
-              onChange={onFilterOptionsChanged}
-              onClick={(e) => setType(e.target.options.value)}
+              onChange={onFilterChanges}
+              // onClick={(e) => setType(e.target.options.value)}
             />
           </div>
+
           <div className="mb-3 mr-2">
             <Select
-              value={category !== "" ? category : "Category"}
-              filterName="Category"
+              filterName={category ? category : "Category"}
               path="/category"
-              onChange={onFilterOptionsChanged}
-              onClick={(e) => setCategory(e.target.options.value)}
+              onChange={onFilterChanges}
+              // onClick={(e) => setCategory(e.target.value)}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
-              value={wheelSize !== "" ? wheelSize : "Wheels size"}
-              filterName="Wheels size"
+              filterName={wheelSize ? wheelSize : "Wheels size"}
               path="/wheelSize"
-              onChange={onFilterOptionsChanged}
-              onClick={(e) => setWheelSize(e.target.options.value)}
+              onChange={onFilterChanges}
+              // onClick={(e) => setWheelSize(e.target.options.value)}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
               filterName="Frame Height"
               path="/frameHeight"
-              onChange={onFilterOptionsChanged}
+              onChange={onFilterChanges}
             />
           </div>
         </div>
