@@ -148,10 +148,10 @@ export const validateBike = (bikeObject, boolean) => {
         }
     }
 
-    if (bikeObject.photos.length < 3) {
+    if (bikeObject.photos && bikeObject.photos.length < 3) {
         errorList.push("3 photos at least are required");
     }
-    if (bikeObject.photos.length > 7) {
+    if (bikeObject.photos && bikeObject.photos.length > 7) {
         errorList.push("Please provide up to 7 photos");
     }
     return errorList;
