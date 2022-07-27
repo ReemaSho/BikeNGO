@@ -1,11 +1,11 @@
 import React from "react";
-import "./infoCard.css";
+import "./HomeVisionCard.css";
 
 import PropTypes from "prop-types";
 
-function InfoCard({ icon, title, text }) {
+function HomeVisionCard({ icon, title, text }) {
   return (
-    <div className="infoCard">
+    <div className="homeVisionCard">
       <span className="icon">
         <img className="iconImage" src={icon} alt="icon" />
       </span>
@@ -14,10 +14,10 @@ function InfoCard({ icon, title, text }) {
     </div>
   );
 }
-InfoCard.propTypes = {
+HomeVisionCard.propTypes = {
   icon: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default InfoCard;
+export default HomeVisionCard;
