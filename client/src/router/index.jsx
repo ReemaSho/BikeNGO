@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginRegister from "../pages/loginRegister/LoginRegister";
 import Nav from "../components/nav/Nav";
 import Footer from "../components/footer/Footer";
-import DetailPage from "../pages/detail/DetailPage";
+import BikeDetails from "../pages/bikeDetails/BikeDetails";
 import Home from "../pages/home/Home";
 import Results from "../pages/results/ResultPage";
 import Ads from "../pages/ads/Ads";
@@ -22,7 +22,7 @@ const AppRouter = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginRegister />} />
         <Route path="/results" element={<Results />} />
-        <Route path="/results/:id" element={<DetailPage />} />
+        <Route path="/results/:id" element={<BikeDetails />} />
         <Route path="/ads" element={<Ads />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/about-us" element={<AboutUs />} />
