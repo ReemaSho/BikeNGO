@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { BikesContext } from "../../../provider/bikes";
-import ResultPageMap from "./ResultPageMap";
+import MapContainer from "../../../components/mapContainer/MapContainer";
 import BikeCardList from "./BikeCardList";
 import Loading from "../../../components/loading/Loading";
 import Error from "../../../components/error/Error";
@@ -34,7 +34,12 @@ const ResultPageWrapper = () => {
       {/* map container */}
       <div className="flex-1 relative">
         <div className="sticky top-5 left-0">
-          <ResultPageMap bikeResult={bikes} />
+          <MapContainer
+            error={error}
+            isLoading={isLoading}
+            bikes={bikes}
+            userCenter={false}
+          />
         </div>
       </div>
     </div>
