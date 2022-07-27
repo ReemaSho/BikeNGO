@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 import bikeMarker from "../../assets/logo/Logo.png";
 
 const Logo = () => {
-  const { setSearch, setFilter } = useContext(BikesContext);
+  const { backToHome } = useContext(BikesContext);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    setSearch("");
-    setFilter({});
+    backToHome();
     navigate("/");
   };
   return (
