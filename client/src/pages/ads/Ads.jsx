@@ -9,12 +9,14 @@ import Photos from "../components/ads/photos/Photos";
 import { userContext } from "../../provider/user";
 import Modal from "../../components/modal/Modal";
 import Loading from "../../components/loading/Loading";
+import useAddress from "../../hooks/useAddress";
 const Ads = () => {
   const { localUser } = useContext(userContext);
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
   const [address, setAddress] = useState({});
   const [bike, setBike] = useState({});
+  const { latLong } = useAddress(address);
 
   //* Add Whole Bike
   const token = localStorage.getItem("user");
@@ -27,6 +29,9 @@ const Ads = () => {
     "/bike/create",
     onSuccess
   );
+  useEffect(() => {
+    setBike({ ...bike, latLong });
+  }, [latLong]);
   useEffect(() => {
     return cancelFetch;
   }, []);

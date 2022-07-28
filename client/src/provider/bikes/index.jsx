@@ -4,17 +4,24 @@ import useFetch from "../../hooks/useFetch";
 export const BikesContext = createContext();
 
 const BikesProvider = ({ children }) => {
-  const [bikes, setBikes] = useState([]);
-  const [path, setPath] = useState("/bike?limit=100");
+  const [bikeId, setBikeId] = useState(null);
   const [filter, setFilter] = useState({});
   const [search, setSearch] = useState("");
+  const [path, setPath] = useState("/bike?limit=all");
+  const [bikes, setBikes] = useState([]);
+  const [bike, setBike] = useState({});
   const [type, setType] = useState(null);
   const [category, setCategory] = useState(null);
   const [brand, setBrand] = useState(null);
   const [wheelSize, setWheelSize] = useState(null);
 
   const onSuccess = (data) => {
-    setBikes(data.bikes);
+    if (data.bikes) {
+      setBikes(data.bikes);
+    }
+    if (data.bike) {
+      setBike(data.bike);
+    }
   };
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     path,
@@ -38,6 +45,9 @@ const BikesProvider = ({ children }) => {
           .replaceAll("}", "")
       );
     }
+    if (bikeId) {
+      setPath(`/bike/${bikeId}`);
+    }
 
     performFetch({
       method: "GET",
@@ -46,7 +56,7 @@ const BikesProvider = ({ children }) => {
     return () => {
       cancelFetch();
     };
-  }, [filter, search, setPath, path]);
+  }, [filter, search, setPath, path, bikeId, setBikeId]);
 
   // handle filtering
   const onFilterChanges = (e, filterName) => {
@@ -54,14 +64,11 @@ const BikesProvider = ({ children }) => {
     setSearch("");
     let newFilter = {};
     if (e.target.value !== filterName) {
-      //Wheels size
-      //wheels-size
       const formattedFilter = filterName
         .toLowerCase()
         .replaceAll(" ", "-")
         .trim();
       newFilter[formattedFilter] = e.target.value;
-      //{wheels-size: "ddddddd394494494"}
       setFilter({
         ...filter,
         ...newFilter,
@@ -88,6 +95,14 @@ const BikesProvider = ({ children }) => {
       );
     }
   };
+  const backToHome = () => {
+    setBikeId(null);
+    setFilter({});
+    setSearch("");
+    setPath("/bike?limit=all");
+    setBikes([]);
+    setBike({});
+  };
   return (
     <BikesContext.Provider
       value={{
@@ -95,10 +110,13 @@ const BikesProvider = ({ children }) => {
         isLoading,
         error,
         path,
+        bike,
+        setBikeId,
         setFilter,
         setPath,
         setSearch,
         onFilterChanges,
+        backToHome,
         type,
         setType,
         category,

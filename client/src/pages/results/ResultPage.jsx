@@ -3,7 +3,7 @@ import Select from "../../components/select/Select";
 import PageWrapper from "../../components/pageWrapper/PageWrapper";
 import { BikesContext } from "../../provider/bikes";
 import "./ResultPage.css";
-import ResultPageWrapper from "../components/result/ResultPageWrapper";
+import ResultsBikes from "../components/result/ResultsBikes";
 const Results = () => {
   const { onFilterChanges, type, brand, wheelSize, category } =
     useContext(BikesContext);
@@ -56,7 +56,7 @@ const Results = () => {
           </div>
         </div>
       </div>
-      <ResultPageWrapper />
+      <ResultsBikes />
     </PageWrapper>
   );
 };
