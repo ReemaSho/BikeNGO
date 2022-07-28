@@ -10,7 +10,7 @@ const useAllBikesAddresses = () => {
     setFetchedBikes(data.bikes);
   };
   const { performFetch, cancelFetch, isLoading, error } = useFetch(
-    "/bike?limit=100",
+    "/bike?limit=all",
     onSuccess
   );
   useEffect(() => {
