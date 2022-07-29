@@ -7,7 +7,7 @@ const BikesProvider = ({ children }) => {
   const [bikeId, setBikeId] = useState(null);
   const [filter, setFilter] = useState({});
   const [search, setSearch] = useState("");
-  const [path, setPath] = useState("/bike?limit=all");
+  const [path, setPath] = useState("/bike?limit=20");
   const [bikes, setBikes] = useState([]);
   const [bike, setBike] = useState({});
   const [type, setType] = useState(null);
@@ -95,11 +95,11 @@ const BikesProvider = ({ children }) => {
       );
     }
   };
-  const backToHome = () => {
+  const resetStates = (path) => {
     setBikeId(null);
     setFilter({});
     setSearch("");
-    setPath("/bike?limit=all");
+    setPath(path);
     setBikes([]);
     setBike({});
   };
@@ -116,7 +116,7 @@ const BikesProvider = ({ children }) => {
         setPath,
         setSearch,
         onFilterChanges,
-        backToHome,
+        resetStates,
         type,
         setType,
         category,

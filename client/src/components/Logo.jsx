@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png";
 
 const Logo = () => {
-  const { backToHome } = useContext(BikesContext);
+  const { resetStates } = useContext(BikesContext);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    backToHome();
+    resetStates("/bike?limit=all");
     navigate("/");
   };
   return (
