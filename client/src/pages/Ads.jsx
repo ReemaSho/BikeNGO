@@ -11,7 +11,7 @@ import Loading from "../components/Loading";
 import useFetch from "../hooks/useFetch";
 import useAddress from "../hooks/useAddress";
 const Ads = () => {
-  const { localUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [photos, setPhotos] = useState([]);
   const [address, setAddress] = useState({});
@@ -42,7 +42,7 @@ const Ads = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (localUser && localUser.username) {
+    if (user && user.username) {
       const date = new Date();
       let dataId = date.valueOf();
       const result = { bike: { dataId: dataId, ...bike, address: address } };

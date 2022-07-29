@@ -8,13 +8,13 @@ import useFetch from "../hooks/useFetch";
 import { UserContext } from "../provider/UserContext";
 
 const UserProfile = () => {
-  const { localUser, setLocalUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [path, setPath] = useState("");
   const [loggedUser, setLoggedUser] = useState(null);
   const [userAddress, setUserAddress] = useState(null);
 
   const onSuccess = (data) => {
-    setLocalUser({
+    setUser({
       ...data.user,
     });
     if (data.accessToken) {
@@ -47,14 +47,14 @@ const UserProfile = () => {
   );
 
   useEffect(() => {
-    if (localUser) {
-      setPath(`/user/${localUser._id}`);
-      const { username, email, firstName, lastName, phone } = localUser;
+    if (user) {
+      setPath(`/user/${user._id}`);
+      const { username, email, firstName, lastName, phone } = user;
       setLoggedUser({ username, firstName, lastName, phone, email });
-      setUserAddress({ ...localUser.address });
+      setUserAddress({ ...user.address });
     }
     return cancelFetch;
-  }, [localUser]);
+  }, [user]);
 
   return (
     <PageWrapper>

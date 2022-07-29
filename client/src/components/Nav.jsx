@@ -8,18 +8,18 @@ import { useNavigate } from "react-router-dom";
 const Nav = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { localUser, setLocalUser, isLoading, error } = useContext(UserContext);
+  const { user, setUser, isLoading, error } = useContext(UserContext);
   const handleMenuClose = () => {
     setIsOpen(false);
   };
   const handleLogOut = () => {
-    setLocalUser(null);
+    setUser(null);
     navigate("/");
     localStorage.removeItem("user");
   };
   const handleSellNow = () => {
     setIsOpen(false);
-    if (localUser.username) {
+    if (user) {
       navigate("/ads");
     } else {
       navigate("/login");
@@ -76,10 +76,10 @@ const Nav = () => {
           )}
         </div>
         <div className="hidden md:flex items-center space-x-3">
-          {localUser && !isLoading && !error ? (
-            localUser.username ? (
+          {user && !isLoading && !error ? (
+            user.username ? (
               <>
-                <TextLink path="/profile" text={localUser.username} />
+                <TextLink path="/profile" text={user.username} />
 
                 <Button
                   text={"Log out"}
@@ -107,10 +107,10 @@ const Nav = () => {
       <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         <div className="bg-white shadow-lg rounded-lg">
           <div className="px-4 py-5 sm:p-6 flex flex-col justify-center items-center space-y-3">
-            {localUser ? (
-              localUser.username ? (
+            {user ? (
+              user.username ? (
                 <>
-                  <TextLink path="/profile" text={localUser.username} />
+                  <TextLink path="/profile" text={user.username} />
                   <Button
                     text={"Log out"}
                     onClick={handleLogOut}
