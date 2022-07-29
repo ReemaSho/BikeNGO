@@ -11,7 +11,7 @@ import UserProfile from "./pages/UserProfile";
 import AboutUs from "./pages/AboutUs";
 import TermsOfUse from "./pages/TermsOfUse";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import ContactUs from "./pages/ContactUs";
+import Developers from "./pages/Developers";
 import NotFound from "./pages/NotFound";
 
 const AppRouter = () => {
@@ -28,7 +28,7 @@ const AppRouter = () => {
         <Route path="/about-us" element={<AboutUs />} />
         <Route path="/terms-of-use" element={<TermsOfUse />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/developers" element={<Developers />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

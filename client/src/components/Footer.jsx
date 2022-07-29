@@ -20,7 +20,7 @@ const Footer = () => {
           </ul>
           <ul className="footer-ul">
             <li className="footer-li">
-              <TextLink path="/contact-us" text="Contact us" />
+              <TextLink path="/developers" text="developers" />
             </li>
           </ul>
         </div>
