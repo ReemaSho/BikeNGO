@@ -5,71 +5,56 @@ import Button from "../../components/Button";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 import { UserContext } from "../../provider/UserContext";
-import useFetch from "../../hooks/useFetch";
 import "./login.css";
 const Login = () => {
+  const [userCredentials, setUserCredentials] = useState({});
+  const { user, isLoading, error, setPath, submitUser } =
+    useContext(UserContext);
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
-  const { setLocalUser } = useContext(UserContext);
-
-  const onSuccess = (data) => {
-    setLocalUser({
-      ...data.user,
-    });
-    if (data.accessToken) {
-      localStorage.setItem("user", data.accessToken);
-    }
-    navigate(-1);
-  };
-  const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    "/user/login",
-    onSuccess
-  );
-
   useEffect(() => {
-    return cancelFetch;
+    setPath("/user/login");
   }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    performFetch({
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-
-      body: JSON.stringify({ user }),
-    });
-  };
+  useEffect(() => {
+    if (user) {
+      navigate(-1);
+    }
+  }, [user]);
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
       {error && <Error message={error} />}
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <form className="login-container">
-          <Input
-            name="email"
-            type="email"
-            className="input-field"
-            placeHolder="user email"
-            required
-            onChange={(value) => setUser({ ...user, email: value })}
-          />
-          <Input
-            name="password"
-            type="password"
-            className="input-field"
-            placeHolder="password"
-            required
-            onChange={(value) => setUser({ ...user, password: value })}
-          />
-          <div className="submit-btn">
-            <Button text={"login"} onClick={handleSubmit}></Button>
-          </div>
-        </form>
-      )}
+
+      <form className="login-container">
+        <Input
+          name="email"
+          type="email"
+          className="input-field"
+          placeHolder="user email"
+          required
+          onChange={(value) =>
+            setUserCredentials({ ...userCredentials, email: value })
+          }
+        />
+        <Input
+          name="password"
+          type="password"
+          className="input-field"
+          placeHolder="password"
+          required
+          onChange={(value) =>
+            setUserCredentials({ ...userCredentials, password: value })
+          }
+        />
+        <div className="submit-btn">
+          <Button
+            text={"login"}
+            onClick={() => submitUser(userCredentials)}
+          ></Button>
+        </div>
+      </form>
     </div>
   );
 };
