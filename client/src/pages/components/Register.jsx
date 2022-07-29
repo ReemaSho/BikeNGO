@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../../../../components/Input";
-import Button from "../../../../components/Button";
-import Loading from "../../../../components/Loading";
-import Error from "../../../../components/Error";
-import { UserContext } from "../../../../provider/UserContext";
-import useFetch from "../../../../hooks/useFetch";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+import { UserContext } from "../../provider/UserContext";
+import useFetch from "../../hooks/useFetch";
 import "./register.css";
 const Register = () => {
   const navigate = useNavigate();
-  const { setLocalUser } = useContext(userContext);
+  const { setLocalUser } = useContext(UserContext);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState(null);
   const onSuccess = (data) => {

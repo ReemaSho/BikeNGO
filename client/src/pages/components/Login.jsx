@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Input from "../../../../components/Input";
-import Button from "../../../../components/Button";
-import Loading from "../../../../components/Loading";
-import Error from "../../../../components/Error";
-import { UserContext } from "../../../../provider/UserContext";
-import useFetch from "../../../../hooks/useFetch";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
+import { UserContext } from "../../provider/UserContext";
+import useFetch from "../../hooks/useFetch";
 import "./login.css";
 const Login = () => {
   const navigate = useNavigate();
