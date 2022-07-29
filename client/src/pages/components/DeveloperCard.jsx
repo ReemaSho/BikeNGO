@@ -2,7 +2,7 @@ import React from "react";
 import PropType from "prop-types";
 import { FiGithub, FiLinkedin, FiTwitter } from "react-icons/fi";
 
-const DevCard = ({
+const DeveloperCard = ({
   name,
   position,
   image,
@@ -48,7 +48,7 @@ const DevCard = ({
   );
 };
 
-DevCard.propTypes = {
+DeveloperCard.propTypes = {
   name: PropType.string.isRequired,
   position: PropType.string.isRequired,
   image: PropType.string.isRequired,
@@ -58,4 +58,4 @@ DevCard.propTypes = {
   twitter: PropType.string,
 };
 
-export default DevCard;
+export default DeveloperCard;
