@@ -1,8 +1,15 @@
 import React from "react";
-import AppProvider from "./provider";
-
+import BikesProvider from "./provider/BikesContext";
+import UserProvider from "./provider/UserContext";
+import AppRouter from "./AppRouter";
 const App = () => {
-  return <AppProvider />;
+  return (
+    <UserProvider>
+      <BikesProvider>
+        <AppRouter />
+      </BikesProvider>
+    </UserProvider>
+  );
 };
 
 export default App;

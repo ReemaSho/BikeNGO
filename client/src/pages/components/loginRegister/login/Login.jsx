@@ -1,17 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import Input from "../../../../components/input/Input";
-import Button from "../../../../components/button/Button";
-import "./login.css";
-import { userContext } from "../../../../provider/user";
-import useFetch from "../../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../../../components/loading/Loading";
-import Error from "../../../../components/error/Error";
-
+import Input from "../../../../components/Input";
+import Button from "../../../../components/Button";
+import Loading from "../../../../components/Loading";
+import Error from "../../../../components/Error";
+import { UserContext } from "../../../../provider/UserContext";
+import useFetch from "../../../../hooks/useFetch";
+import "./login.css";
 const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
-  const { setLocalUser } = useContext(userContext);
+  const { setLocalUser } = useContext(UserContext);
 
   const onSuccess = (data) => {
     setLocalUser({

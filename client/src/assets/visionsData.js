@@ -1,6 +1,6 @@
-import girlBuy from "./icon/girl-buy.svg";
-import howItWorks from "./icon/how-it-works-1.svg";
-import howItWorks2 from "./icon/how-it-works-2.svg";
+import girlBuy from "./appVisionIcons/girl-buy.svg";
+import howItWorks from "./appVisionIcons/how-it-works-1.svg";
+import howItWorks2 from "./appVisionIcons/how-it-works-2.svg";
 const visionsData = [{
         icon: howItWorks,
         title: "Find your second-hand bike",

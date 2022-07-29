@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./register.css";
-import Input from "../../../../components/input/Input";
-import Button from "../../../../components/button/Button";
-import useFetch from "../../../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../../../../provider/user";
-import Loading from "../../../../components/loading/Loading";
-import Error from "../../../../components/error/Error";
+import Input from "../../../../components/Input";
+import Button from "../../../../components/Button";
+import Loading from "../../../../components/Loading";
+import Error from "../../../../components/Error";
+import { UserContext } from "../../../../provider/UserContext";
+import useFetch from "../../../../hooks/useFetch";
+import "./register.css";
 const Register = () => {
   const navigate = useNavigate();
   const { setLocalUser } = useContext(userContext);
