@@ -1,89 +1,91 @@
 .footer-container {
-  margin-top: 20px;
-}
-.footer {
-  display: flex;
-  width: 80%;
-  margin: auto;
+    background-color: var(--tertiary);
+    color: var(--text);
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.footer-content {
-  display: flex;
-  flex: 2;
+.footer-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-router {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .footer-ul {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 50%;
-  list-style-type: none;
-  flex: 1;
+    display: flex;
+    list-style-type: none;
+    flex: 1;
 }
+
 .footer-li {
-  margin: 5px 0;
+    margin: 0 10px;
+}
+
+.footer-li:hover {
+    text-decoration: underline;
+    color: var(--primary);
+}
+
+.footer-links {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .socialMedia-icons {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .fa-brands {
-  margin: 5px;
-  font-size: 40px;
+    margin: 5px;
+    font-size: 40px;
 }
 
 .fa-facebook-square {
-  color: #3b5999;
+    color: #3b5999;
 }
+
 .fa-instagram-square {
-  color: #e4405f;
+    color: #e4405f;
 }
+
 .fa-twitter-square {
-  color: #55acee;
+    color: #55acee;
 }
+
 .fa-pinterest-square {
-  color: #e60023;
-}
-
-.footer-bottom {
-  background-color: rgb(36, 205, 116);
-  height: 50px;
-  line-height: 50px;
-}
-
-.footer-bottom h6 {
-  margin-top: 20px;
-  color: white;
-  text-align: center;
-  font-size: 16px;
-}
-
-@media (max-width: 500px) {
-  .footer {
-    width: 100%;
-    width: 100%;
-  }
-  .footer-ul {
-    width: 100%;
-  }
-  .footer-content {
-    flex-direction: column;
-    flex: 1;
-  }
+    color: #e60023;
 }
 
 @media (max-width: 720px) {
-  .footer {
-    flex-direction: column;
-    width: 100%;
-  }
-  .footer-content {
-    margin-left: 100px;
-  }
-  .socialMedia-icons {
-    margin-top: 25px;
-  }
+    .footer-router {
+        display: flex;
+        width: 80%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .footer-ul {
+        flex-direction: column;
+        width: 50%;
+    }
 }

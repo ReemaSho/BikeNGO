@@ -12,7 +12,7 @@ const AboutUs = () => {
   }, []);
 
   return (
-    <div classNameName="w-full h-max bg-gray-100">
+    <div className="w-full h-max ">
       <div className="container mx-auto flex flex-col px-5 justify-center items-center">
         <img
           className="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded"
