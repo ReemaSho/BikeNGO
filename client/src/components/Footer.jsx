@@ -1,29 +1,46 @@
 import React from "react";
-import TextLink from "./TextLink";
+import { Link } from "react-router-dom";
+
 import "./footer.css";
 
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <div className="footer">
-        <div className="footer-content">
-          <ul className="footer-ul">
-            <li className="footer-li">
-              <TextLink path="/terms-of-use" text="Terms of Use" />
-            </li>
-            <li className="footer-li">
-              <TextLink path="/about-us" text="About us" />
-            </li>
-            <li className="footer-li">
-              <TextLink path="/privacy-policy" text="Privacy Policy" />
-            </li>
-          </ul>
-          <ul className="footer-ul">
-            <li className="footer-li">
-              <TextLink path="/developers" text="developers" />
-            </li>
-          </ul>
-        </div>
+    <div className="footer-container ">
+      <header className="footer-header">
+        <h3>
+          {" "}
+          Welcome to our website{" "}
+          <span>
+            Bike
+            <span className="text-primary">NG</span>o
+          </span>
+        </h3>
+
+        <p>
+          This is the graduation project of Hack Your Future students, class34
+        </p>
+      </header>
+      <div className="footer-router">
+        <ul className="footer-ul">
+          <li className="footer-li">
+            <Link to="/about-us">About us</Link>
+          </li>
+          <li className="footer-li">
+            <Link to="/terms-of-use">Terms of Use</Link>
+          </li>
+
+          <li className="footer-li">
+            <Link to="/privacy-policy">Privacy Policy</Link>
+          </li>
+        </ul>
+
+        <ul className="footer-ul">
+          <li className="footer-li">
+            <Link to="/developers">Developers</Link>
+          </li>
+        </ul>
+      </div>
+      <div className="footer-links">
         <div className="socialMedia-icons">
           <a
             href="https://www.facebook.com/BikenGo-106797538676285"
@@ -49,7 +66,14 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <h6>Copyright © 2022 bikeNGo. All rights reserved.</h6>
+        <h6>
+          Copyright{" "}
+          <span>
+            Bike
+            <span className="text-primary">NG</span>o
+          </span>
+          ©2022
+        </h6>
       </div>
     </div>
   );
