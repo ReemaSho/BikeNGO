@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Select from "../components/Select";
 import PageWrapper from "../components/PageWrapper";
 import ResultsBikes from "./components/ResultsBikes";
@@ -6,9 +6,13 @@ import { BikesContext } from "../provider/BikesContext";
 import "./results.css";
 
 const Results = () => {
-  const { onFilterChanges, type, brand, wheelSize, category } =
+  const { onFilterChanges, type, brand, wheelSize, category, setPath, path } =
     useContext(BikesContext);
-
+  useEffect(() => {
+    if (path === "/bike?limit=all") {
+      setPath("/bike?limit=20");
+    }
+  }, []);
   return (
     <PageWrapper>
       {/* filters and sort container */}
