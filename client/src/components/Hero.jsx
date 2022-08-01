@@ -1,21 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Input from "./Input";
 import Button from "./Button";
 import Select from "./Select";
 import { useNavigate } from "react-router-dom";
 import { BikesContext } from "../provider/BikesContext";
-import { useEffect } from "react";
+import { OptionsContext } from "../provider/OptionsContext";
+
 const Hero = () => {
   const [inputValue, setInputValue] = useState("");
-  const {
-    onFilterChanges,
-    setSearch,
-    setBrand,
-    setType,
-    setWheelSize,
-    setCategory,
-  } = useContext(BikesContext);
-
+  const { onFilterChanges, setSearch } = useContext(BikesContext);
+  const { changeFirstOptionText } = useContext(OptionsContext);
   useEffect(() => {
     setSearch(inputValue);
   }, [inputValue]);
@@ -30,7 +24,11 @@ const Hero = () => {
   const btnSearchOnClick = () => {
     navigate("/results");
   };
-
+  // handle options change
+  const OnOptionsChange = (e, optionName) => {
+    changeFirstOptionText(e, optionName);
+    onFilterChanges(e, optionName);
+  };
   return (
     <>
       {/* hero container */}
@@ -78,40 +76,28 @@ const Hero = () => {
                 <Select
                   filterName="Category"
                   path="/category"
-                  onChange={onFilterChanges}
-                  onClick={(e) =>
-                    setCategory(e.target.options[e.target.selectedIndex].value)
-                  }
+                  onChange={OnOptionsChange}
                 />
               </div>
               <div>
                 <Select
                   filterName="Type"
                   path="/type"
-                  onChange={onFilterChanges}
-                  onClick={(e) => {
-                    setType(e.target.options[e.target.selectedIndex].value);
-                  }}
+                  onChange={OnOptionsChange}
                 />
               </div>
               <div>
                 <Select
                   filterName="Brand"
                   path="/brand"
-                  onChange={onFilterChanges}
-                  onClick={(e) =>
-                    setBrand(e.target.options[e.target.selectedIndex].value)
-                  }
+                  onChange={OnOptionsChange}
                 />
               </div>
               <div>
                 <Select
                   filterName="Wheels size"
                   path="/wheelSize"
-                  onChange={onFilterChanges}
-                  onClick={(e) =>
-                    setWheelSize(e.target.options[e.target.selectedIndex].value)
-                  }
+                  onChange={OnOptionsChange}
                 />
               </div>
             </div>

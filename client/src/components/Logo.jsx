@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
-import { BikesContext } from "../provider/BikesContext";
 import { useNavigate } from "react-router-dom";
+import { BikesContext } from "../provider/BikesContext";
+import { OptionsContext } from "../provider/OptionsContext";
 import logo from "../assets/logo.png";
 
 const Logo = () => {
-  const { resetStates } = useContext(BikesContext);
+  const { resetBikesStates } = useContext(BikesContext);
+  const { resetOptionsStates } = useContext(OptionsContext);
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    resetStates("/bike?limit=all");
+    resetBikesStates("/bike?limit=all");
+    resetOptionsStates();
     navigate("/");
   };
   return (

@@ -77,6 +77,10 @@
 }
 
 @media (max-width: 720px) {
+    .fa-brands {
+        margin: 3px;
+        font-size: 26px;
+    }
     .footer-router {
         display: flex;
         width: 80%;
