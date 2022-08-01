@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import LoginRegister from "./pages/LoginRegister";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -32,6 +33,17 @@ const AppRouter = () => {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </BrowserRouter>
   );
 };
