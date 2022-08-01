@@ -5,10 +5,10 @@ import Button from "../components/Button";
 import { BikesContext } from "../provider/BikesContext";
 
 const AboutUs = () => {
-  const { resetStates } = useContext(BikesContext);
+  const { resetBikesStates } = useContext(BikesContext);
   const navigate = useNavigate();
   useEffect(() => {
-    resetStates("/bike?limit=20");
+    resetBikesStates("/bike?limit=20");
   }, []);
 
   return (

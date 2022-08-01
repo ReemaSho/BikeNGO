@@ -10,10 +10,6 @@ const BikesProvider = ({ children }) => {
   const [path, setPath] = useState("/bike?limit=20");
   const [bikes, setBikes] = useState([]);
   const [bike, setBike] = useState({});
-  const [type, setType] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [brand, setBrand] = useState(null);
-  const [wheelSize, setWheelSize] = useState(null);
 
   const onSuccess = (data) => {
     if (data.bikes) {
@@ -95,7 +91,8 @@ const BikesProvider = ({ children }) => {
       );
     }
   };
-  const resetStates = (path) => {
+
+  const resetBikesStates = (path) => {
     setBikeId(null);
     setFilter({});
     setSearch("");
@@ -116,15 +113,7 @@ const BikesProvider = ({ children }) => {
         setPath,
         setSearch,
         onFilterChanges,
-        resetStates,
-        type,
-        setType,
-        category,
-        setCategory,
-        brand,
-        setBrand,
-        wheelSize,
-        setWheelSize,
+        resetBikesStates,
       }}
     >
       {children}

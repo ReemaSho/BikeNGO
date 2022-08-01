@@ -3,60 +3,75 @@ import Select from "../components/Select";
 import PageWrapper from "../components/PageWrapper";
 import ResultsBikes from "./components/ResultsBikes";
 import { BikesContext } from "../provider/BikesContext";
+import { OptionsContext } from "../provider/OptionsContext";
 import "./results.css";
 
 const Results = () => {
-  const { onFilterChanges, type, brand, wheelSize, category, setPath, path } =
-    useContext(BikesContext);
+  const { onFilterChanges, setPath, path } = useContext(BikesContext);
+  const {
+    type,
+    brand,
+    wheelSize,
+    category,
+    frameHeight,
+    changeFirstOptionText,
+  } = useContext(OptionsContext);
+
   useEffect(() => {
     if (path === "/bike?limit=all") {
       setPath("/bike?limit=20");
     }
   }, []);
+
+  const onFilterOptionChanges = (e, optionName) => {
+    changeFirstOptionText(e, optionName);
+    onFilterChanges(e, optionName);
+  };
   return (
     <PageWrapper>
       {/* filters and sort container */}
       <div className="flex">
         {/* filters container */}
-        <div className="flex flex-wrap justify-between">
+        <div className="flex flex-wrap justify-around">
           <div className="mb-3 mr-2">
             <Select
-              filterName={brand ? brand : "Brand"}
+              filterName={"Brand"}
               path="/brand"
-              onChange={onFilterChanges}
-              // onClick={(e) => setBrand(e.target.options.value)}
+              value={brand}
+              onChange={onFilterOptionChanges}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
-              filterName={type ? type : "Type"}
+              filterName={"Type"}
               path="/type"
-              onChange={onFilterChanges}
-              // onClick={(e) => setType(e.target.options.value)}
+              value={type}
+              onChange={onFilterOptionChanges}
             />
           </div>
 
           <div className="mb-3 mr-2">
             <Select
-              filterName={category ? category : "Category"}
+              filterName={"Category"}
               path="/category"
-              onChange={onFilterChanges}
-              // onClick={(e) => setCategory(e.target.value)}
+              value={category}
+              onChange={onFilterOptionChanges}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
-              filterName={wheelSize ? wheelSize : "Wheels size"}
+              filterName={"Wheels size"}
               path="/wheelSize"
-              onChange={onFilterChanges}
-              // onClick={(e) => setWheelSize(e.target.options.value)}
+              value={wheelSize}
+              onChange={onFilterOptionChanges}
             />
           </div>
           <div className="mb-3 mr-2">
             <Select
               filterName="Frame Height"
               path="/frameHeight"
-              onChange={onFilterChanges}
+              value={frameHeight}
+              onChange={onFilterOptionChanges}
             />
           </div>
         </div>
