@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import getCenter from "geolib/es/getCenter";
 import MapGl from "./MapGl";
 import Loading from "./Loading";
-import Error from "./Error";
+
 const MapContainer = ({ isLoading, error, bikes, userCenter }) => {
   const [viewport, setViewport] = useState({
     latitude: 52.379189,
     longitude: 4.899431,
     width: "100%",
     height: "100%",
-    zoom: 6,
+    zoom: 7,
   });
 
   // center map fun
@@ -29,7 +29,7 @@ const MapContainer = ({ isLoading, error, bikes, userCenter }) => {
           ...viewport,
           width: "100%",
           height: "100%",
-          zoom: 6,
+          zoom: 7,
           latitude: centeredBikes.latitude,
           longitude: centeredBikes.longitude,
         });
@@ -39,8 +39,8 @@ const MapContainer = ({ isLoading, error, bikes, userCenter }) => {
   if (isLoading) {
     return <Loading />;
   }
-  if (error) {
-    return <Error message={error} />;
+  if (error && !bikes.length) {
+    return null;
   }
   return (
     <div>

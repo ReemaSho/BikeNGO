@@ -7,7 +7,7 @@ const UserProvider = ({ children }) => {
   const { authenticatedUser } = useAuthenticatedUser();
   const [user, setUser] = useState(null);
   const [path, setPath] = useState("");
-
+  const [authError, setAuthError] = useState(null);
   useEffect(() => setUser(authenticatedUser), [authenticatedUser]);
 
   const onSuccess = (data) => {
@@ -18,6 +18,7 @@ const UserProvider = ({ children }) => {
       localStorage.setItem("user", data.accessToken);
     }
   };
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     path,
     onSuccess
@@ -26,7 +27,11 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     return cancelFetch;
   }, []);
-
+  useEffect(() => {
+    if (error) {
+      setAuthError(error);
+    }
+  }, [error]);
   const submitUser = (user) => {
     performFetch({
       method: "POST",
@@ -39,7 +44,15 @@ const UserProvider = ({ children }) => {
   };
   return (
     <UserContext.Provider
-      value={{ user, isLoading, error, setUser, setPath, submitUser }}
+      value={{
+        user,
+        isLoading,
+        authError,
+        setAuthError,
+        setUser,
+        setPath,
+        submitUser,
+      }}
     >
       {children}
     </UserContext.Provider>

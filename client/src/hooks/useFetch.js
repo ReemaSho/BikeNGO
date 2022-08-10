@@ -14,80 +14,78 @@ import { useState } from "react";
  * cancelFetch - this function will cancel the fetch, call it when your component is unmounted
  */
 const useFetch = (route, onReceived) => {
-  /**
-   * We use the AbortController which is supported by all modern browsers to handle cancellations
-   * For more info: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
-   */
-  const controller = new AbortController();
-  const signal = controller.signal;
-  const cancelFetch = () => {
-    controller.abort();
-  };
-
-  if (route.includes("api/")) {
     /**
-     * We add this check here to provide a better error message if you accidentally add the api part
-     * As an error that happens later because of this can be very confusing!
+     * We use the AbortController which is supported by all modern browsers to handle cancellations
+     * For more info: https://developer.mozilla.org/en-US/docs/Web/API/AbortController
      */
-    throw Error(
-      "when using the useFetch hook, the route should not include the /api/ part"
-    );
-  }
-
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Add any args given to the function to the fetch function
-  const performFetch = (options) => {
-    setError(null);
-    setIsLoading(true);
-
-    const fetchUsers = async () => {
-      // We add the /api subsection here to make it a single point of change if our configuration changes
-      const url = `${process.env.BASE_SERVER_URL}/api${route}`;
-
-      const res = await fetch(url, { ...options, signal });
-
-      if (!res.ok) {
-        setError(
-          `Fetch for ${url} returned an invalid status (${
-            res.status
-          }). Received: ${JSON.stringify(res)}`
-        );
-      }
-
-      const jsonResult = await res.json();
-
-      if (jsonResult.success === true) {
-        onReceived(jsonResult);
-      } else if (
-        jsonResult.msg === "Invalid token" ||
-        jsonResult.msg === "Access Denied"
-      ) {
-        setError("Something went wrong, please Login or register.");
-      } else if (jsonResult.msg.includes("BAD REQUEST:")) {
-        setError(jsonResult.msg.split("BAD REQUEST:")[1]);
-      } else {
-        setError(
-          jsonResult.msg ||
-            `The result from our API did not have an error message. Received: ${JSON.stringify(
-              jsonResult
-            )}`
-        );
-      }
-
-      setIsLoading(false);
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const cancelFetch = () => {
+        controller.abort();
     };
 
-    try {
-      fetchUsers();
-    } catch (error) {
-      setError(error);
-      setIsLoading(false);
+    if (route.includes("api/")) {
+        /**
+         * We add this check here to provide a better error message if you accidentally add the api part
+         * As an error that happens later because of this can be very confusing!
+         */
+        throw Error(
+            "when using the useFetch hook, the route should not include the /api/ part"
+        );
     }
-  };
 
-  return { isLoading, error, performFetch, cancelFetch };
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Add any args given to the function to the fetch function
+    const performFetch = (options) => {
+        setError(null);
+        setIsLoading(true);
+
+        const fetchUsers = async() => {
+            // We add the /api subsection here to make it a single point of change if our configuration changes
+            const url = `${process.env.BASE_SERVER_URL}/api${route}`;
+
+            const res = await fetch(url, {...options, signal });
+
+            const jsonResult = await res.json();
+
+            if (!res.ok && !jsonResult) {
+                setError(
+                    `Fetch for ${url} returned an invalid status (${
+            res.status
+          }). Received: ${JSON.stringify(res)}`
+                );
+            } else if (jsonResult.success === true) {
+                onReceived(jsonResult);
+            } else if (
+                jsonResult.msg === "Invalid token" ||
+                jsonResult.msg === "Access Denied"
+            ) {
+                setError("Something went wrong, please Login or register.");
+            } else if (jsonResult.msg.includes("BAD REQUEST:")) {
+                setError(jsonResult.msg.split("BAD REQUEST:")[1]);
+            } else {
+                setError(
+                    jsonResult.msg ||
+                    `The result from our API did not have an error message. Received: ${JSON.stringify(
+              jsonResult
+            )}`
+                );
+            }
+
+            setIsLoading(false);
+        };
+
+        try {
+            fetchUsers();
+        } catch (error) {
+            setError(error);
+            setIsLoading(false);
+        }
+    };
+
+    return { isLoading, error, performFetch, cancelFetch };
 };
 
 export default useFetch;

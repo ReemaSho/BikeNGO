@@ -1,17 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import PageWrapper from "../components/PageWrapper";
-import Error from "../components/Error";
 import Loading from "../components/Loading";
 import useFetch from "../hooks/useFetch";
 import { UserContext } from "../provider/UserContext";
 
 const UserProfile = () => {
   const { user, setUser } = useContext(UserContext);
+
   const [path, setPath] = useState("");
   const [loggedUser, setLoggedUser] = useState(null);
   const [userAddress, setUserAddress] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setPath(`/user/${user._id}`);
+      const { username, firstName, lastName, phone } = user;
+      setLoggedUser({ username, firstName, lastName, phone });
+      setUserAddress({ ...user.address });
+    }
+  }, [user]);
 
   const onSuccess = (data) => {
     setUser({
@@ -20,17 +30,12 @@ const UserProfile = () => {
     if (data.accessToken) {
       localStorage.setItem("user", data.accessToken);
     }
-    alert("Profile updated successfully");
+    toast.success("Profile updated successfully");
   };
 
   const onButtonClick = () => {
     const data = {
-      user: {
-        firstName: loggedUser.firstName,
-        lastName: loggedUser.lastName,
-        password: loggedUser.password,
-        address: userAddress,
-      },
+      user: { ...loggedUser, address: { ...userAddress } },
     };
     performFetch({
       method: "PUT",
@@ -47,17 +52,14 @@ const UserProfile = () => {
   );
 
   useEffect(() => {
-    if (user) {
-      setPath(`/user/${user._id}`);
-      const { username, email, firstName, lastName, phone } = user;
-      setLoggedUser({ username, firstName, lastName, phone, email });
-      setUserAddress({ ...user.address });
+    if (error) {
+      toast.error(error);
     }
-    return cancelFetch;
-  }, [user]);
+  }, [error]);
 
   return (
     <PageWrapper>
+      {isLoading && <Loading />}
       {loggedUser ? (
         <>
           <h1 className="text-2xl text-gray-700">My Profile</h1>
@@ -150,10 +152,8 @@ const UserProfile = () => {
                     type="email"
                     name="email"
                     placeHolder="Enter your email"
-                    value={loggedUser.email ? loggedUser.email : ""}
-                    onChange={(value) =>
-                      setLoggedUser({ ...loggedUser, email: value })
-                    }
+                    disabled
+                    value={user.email ? user.email : ""}
                   />
                 </div>
                 {/* password */}
@@ -204,7 +204,7 @@ const UserProfile = () => {
                     type="text"
                     name="street"
                     placeHolder="Enter your street"
-                    value={userAddress ? userAddress.street : ""}
+                    value={userAddress.street ? userAddress.street : ""}
                     onChange={(value) =>
                       setUserAddress({ ...userAddress, street: value })
                     }
@@ -220,7 +220,9 @@ const UserProfile = () => {
                     type="text"
                     name="houseNumber"
                     placeHolder="Enter your house number"
-                    value={userAddress ? userAddress.houseNumber : ""}
+                    value={
+                      userAddress.houseNumber ? userAddress.houseNumber : ""
+                    }
                     onChange={(value) =>
                       setUserAddress({ ...userAddress, houseNumber: value })
                     }
@@ -236,7 +238,7 @@ const UserProfile = () => {
                     type="text"
                     name="postcode"
                     placeHolder="Enter your postcode"
-                    value={userAddress ? userAddress.postcode : ""}
+                    value={userAddress.postcode ? userAddress.postcode : ""}
                     onChange={(value) =>
                       setUserAddress({ ...userAddress, postcode: value })
                     }
@@ -245,12 +247,9 @@ const UserProfile = () => {
               </div>
             </div>
 
-            {error && <Error message={error} />}
-            {isLoading && <Loading />}
-
             <Button
               text={"Save"}
-              className="profile-btn "
+              className="profile-btn"
               fullSize={true}
               onClick={onButtonClick}
             />

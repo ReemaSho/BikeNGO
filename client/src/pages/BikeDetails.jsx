@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { FaMailBulk } from "react-icons/fa";
 import { HiLink } from "react-icons/hi";
+import { toast } from "react-toastify";
 import PageWrapper from "../components/PageWrapper";
 import MapContainer from "../components/MapContainer";
 import Loading from "../components/Loading";
+import ErrorModal from "../components/ErrorModal";
 import { BikesContext } from "../provider/BikesContext";
 
 const BikeDetails = () => {
   const { id } = useParams();
-  const { setBikeId, bike, isLoading, error } = useContext(BikesContext);
+  const { setBikeId, bike, isLoading, error, resetBikesStates } =
+    useContext(BikesContext);
   const [singleBike, setSingleBike] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
-
+  const navigate = useNavigate();
   useEffect(() => {
     setBikeId(id);
   }, [id]);
@@ -22,23 +25,23 @@ const BikeDetails = () => {
       setSingleBike(bike);
     }
   }, [bike]);
-
+  const NavigateHome = () => {
+    resetBikesStates("/bike?limit=all");
+    navigate("/");
+  };
   const handleCopyLink = async () => {
     await navigator.clipboard.writeText(`${window.location.href}`);
-    alert("Link copied to clipboard");
+    toast.success("Link copied to clipboard");
   };
 
   if (error) {
     return (
-      <div className="flex justify-center">
-        <div className="w-3/4 h-24 bg-red-200 rounded-md flex flex-col justify-center items-center text-text">
-          <h1 className="text-xl font-bold tracking-widest ">Error...</h1>
-          <p>
-            Sorry we can&#39;t find the bike you are looking for, please try
-            again later..
-          </p>
-        </div>
-      </div>
+      <ErrorModal
+        message={"Sorry we can't find the bike you are looking for..!"}
+        suggestion={"Go Back To Home Page?"}
+        closeModal={NavigateHome}
+        isOpen={true}
+      />
     );
   }
   return (
