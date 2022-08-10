@@ -5,7 +5,6 @@ import HomeVisionCard from "./components/HomeVisionCard";
 import BikeCard from "../components/BikeCard";
 import MapContainer from "../components/MapContainer";
 import Loading from "../components/Loading";
-import Error from "../components/Error";
 import visionsData from "../assets/visionsData.js";
 import { BikesContext } from "../provider/BikesContext";
 import "./home.css";
@@ -24,12 +23,12 @@ const Home = () => {
     }
   }, [bikes]);
 
-  // all bikes
+  // get all bikes
   useEffect(() => {
-    if (featuredBikes.length) {
+    setTimeout(() => {
       setPath("/bike?limit=all");
-    }
-  }, [featuredBikes]);
+    }, [2000]);
+  }, []);
 
   return (
     <>
@@ -49,17 +48,16 @@ const Home = () => {
         </span>
 
         {/* featured Bikes */}
-        <div className="my-10 ">
-          <h1 className="mx-4 my-6  not-prose my-2 text-2xl text-text  tracking-widest">
-            Featured Bikes
-          </h1>
-          <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-items-center gap-4 w-full">
-            {isLoading && path === "/bike?featured=true" && <Loading />}
 
-            {error && path === "/bike?featured=true" ? (
-              <Error message={error} />
-            ) : (
-              featuredBikes.map((bike) => (
+        {isLoading && path === "/bike?featured=true" && <Loading />}
+
+        {featuredBikes.length > 0 && (
+          <div className="my-10 ">
+            <h1 className="mx-4 my-6  not-prose my-2 text-2xl text-text  tracking-widest">
+              Featured Bikes
+            </h1>
+            <div className="my-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 place-items-center gap-4 w-full">
+              {featuredBikes.map((bike) => (
                 <BikeCard
                   key={bike._id}
                   id={bike._id}
@@ -71,10 +69,11 @@ const Home = () => {
                   brand={bike.brand.value}
                   email={bike.user.email}
                 />
-              ))
-            )}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
         {/* map */}
         <div className="flex flex-wrap justify-between my-2 ">
           <h2 className="not-prose my-2 text-2xl text-text tracking-widest">

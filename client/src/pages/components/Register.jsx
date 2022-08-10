@@ -1,33 +1,44 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
-import Error from "../../components/Error";
 import { UserContext } from "../../provider/UserContext";
 import "./register.css";
 const Register = () => {
   const navigate = useNavigate();
-  const { user, isLoading, error, setPath, submitUser } =
+  const { user, isLoading, authError, setAuthError, setPath, submitUser } =
     useContext(UserContext);
+
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userCredentials, setUserCredentials] = useState({});
+  const [newUser, setNewUser] = useState({});
+
   useEffect(() => {
     setPath("/user/create");
   }, []);
+
   useEffect(() => {
     if (user) {
       navigate(-1);
     }
   }, [user]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (userCredentials.password === confirmPassword) {
-      submitUser(userCredentials);
+    if (newUser.password === confirmPassword) {
+      submitUser(newUser);
     } else {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
     }
   };
+
+  useEffect(() => {
+    if (authError) {
+      toast.error(authError);
+      setAuthError(null);
+    }
+  }, [authError]);
 
   if (isLoading) {
     return <Loading />;
@@ -35,8 +46,6 @@ const Register = () => {
 
   return (
     <div>
-      {error && <Error message={error} />}
-
       <form className="register-container">
         <Input
           type="text"
@@ -44,9 +53,7 @@ const Register = () => {
           placeHolder="User Name"
           required
           name="user-name"
-          onChange={(value) =>
-            setUserCredentials({ ...userCredentials, username: value })
-          }
+          onChange={(value) => setNewUser({ ...newUser, username: value })}
         />
         <Input
           type="email"
@@ -54,9 +61,7 @@ const Register = () => {
           placeHolder="Email"
           required
           name="user-email"
-          onChange={(value) =>
-            setUserCredentials({ ...userCredentials, email: value })
-          }
+          onChange={(value) => setNewUser({ ...newUser, email: value })}
         />
         <Input
           type="password"
@@ -64,9 +69,7 @@ const Register = () => {
           placeHolder="Password"
           required
           name="user-Password"
-          onChange={(value) =>
-            setUserCredentials({ ...userCredentials, password: value })
-          }
+          onChange={(value) => setNewUser({ ...newUser, password: value })}
         />
         <Input
           type="password"

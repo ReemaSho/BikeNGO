@@ -15,4 +15,5 @@ body {
     scroll-behavior: smooth;
     color: var(--text);
     height: fit-content;
+    position: relative;
 }

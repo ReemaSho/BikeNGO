@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Select from "../components/Select";
 import Input from "../components/Input";
 import PageWrapper from "../components/PageWrapper";
 import Button from "../components/Button";
 import Photos from "./components/AdsPhotos";
 import { UserContext } from "../provider/UserContext";
-import Modal from "../components/Modal";
+import ErrorModal from "../components/ErrorModal";
 import Loading from "../components/Loading";
 import useFetch from "../hooks/useFetch";
 import useAddress from "../hooks/useAddress";
@@ -21,7 +22,7 @@ const Ads = () => {
   //* Add Whole Bike
   const token = localStorage.getItem("user");
   const onSuccess = (data) => {
-    alert("Your Bike is Successfully published.");
+    toast.success("Your Bike is Successfully published.");
     const path = `/results/${data.Bike._id}`;
     navigate(path);
   };
@@ -32,6 +33,7 @@ const Ads = () => {
   useEffect(() => {
     setBike({ ...bike, latLong });
   }, [latLong]);
+
   useEffect(() => {
     return cancelFetch;
   }, []);
@@ -70,7 +72,7 @@ const Ads = () => {
   return (
     <PageWrapper>
       <Photos setPhotos={handlePhotoChanges} />
-      {error && <Modal message={error} isOpen={true} />}
+      {error && <ErrorModal message={error} isOpen={true} />}
 
       {/* title */}
       <form>

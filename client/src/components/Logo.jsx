@@ -17,7 +17,7 @@ const Logo = () => {
   return (
     <div
       onClick={handleNavigate}
-      className="flex items-start justify-center cursor-pointer"
+      className="flex items-start justify-center cursor-pointer "
     >
       <img className=" h-12 w-15 rotate-12 " src={logo} alt="logo" />
       <h1 className="relative -left-5 text-xl font-bold text-text italic m-0 mt-3">

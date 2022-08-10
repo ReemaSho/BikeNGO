@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 import PropTypes from "prop-types";
 import ImageUploader from "react-images-upload";
@@ -27,7 +28,7 @@ const Photos = ({ setPhotos }) => {
         setIsImageUploaded(true);
       })
       .catch((err) => {
-        alert("Cannot upload photos", err);
+        toast.error("Cannot upload photos", err);
       });
   };
 
@@ -37,9 +38,9 @@ const Photos = ({ setPhotos }) => {
       formData.append("images", filePhotoData[i]);
     }
     if (filePhotoData === true) {
-      alert("Photos are uploaded successfully");
+      toast.success("Photos are uploaded successfully");
     } else if (filePhotoData.length < 3 || filePhotoData.length > 7) {
-      alert("Please upload between 3 and 7 photos");
+      toast.error("Please upload between 3 to 7 photos");
     } else if (isLoading === false) {
       await multipleFilesUpload(formData);
     }

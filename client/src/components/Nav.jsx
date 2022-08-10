@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 const Nav = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const { user, setUser, isLoading, error } = useContext(UserContext);
+  const { user, setUser, isLoading, authError } = useContext(UserContext);
+
   const handleMenuClose = () => {
     setIsOpen(false);
   };
@@ -76,7 +77,7 @@ const Nav = () => {
           )}
         </div>
         <div className="hidden md:flex items-center space-x-3">
-          {user && !isLoading && !error ? (
+          {user && !isLoading && !authError ? (
             user.username ? (
               <>
                 <TextLink path="/profile" text={user.username} />

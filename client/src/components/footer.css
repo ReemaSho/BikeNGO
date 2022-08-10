@@ -76,6 +76,10 @@
     color: #e60023;
 }
 
+.footer-bottom {
+    margin-bottom: 1px;
+}
+
 @media (max-width: 720px) {
     .fa-brands {
         margin: 3px;
