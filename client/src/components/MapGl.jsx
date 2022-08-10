@@ -49,7 +49,7 @@ const MapGl = ({ bikes, boolean, viewport, setViewport }) => {
       onClick={() => handlePopups(bike)}
     >
       <div className="cursor-pointer">
-        <span className="box-decoration-slice bg-gradient-to-r from-orange-500 to-yellow-300 text-white font-bold p-1 ...">
+        <span className="box-decoration-slice  bg-orange-500 text-white font-bold p-1 ...">
           €{bike.price}
         </span>
         <img
